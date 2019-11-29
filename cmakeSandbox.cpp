@@ -1,4 +1,7 @@
 #include <iostream>
+
+#include <UnitTest++/UnitTest++.h>
+
 int main() {
     std::cout << "Hello World\n";
 #ifdef Darwin
