@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.1)
 project( cmakeSandbox )
 
 message( "CMAKE_SYSTEM_NAME                     = ${CMAKE_SYSTEM_NAME}")
+message( "CMAKE_SYSTEM_VERSION                  = ${CMAKE_SYSTEM_VERSION}")
 message( "CMAKE_SYSTEM                          = ${CMAKE_SYSTEM}")
 message( "CMAKE_CXX_COMPILER                    = ${CMAKE_CXX_COMPILER}")
 message( "CMAKE_CXX_COMPILER_ID                 = ${CMAKE_CXX_COMPILER_ID}")
@@ -17,8 +18,8 @@ set( CMAKE_MODULE_PATH
     )
 
 # Add Boost package
-# find_package( Boost COMPONENTS system filesystem REQUIRED )
-# include_directories( ${Boost_INCLUDE_DIRS} )
+find_package( Boost )
+include_directories( ${Boost_INCLUDE_DIRS} )
 
 # Add OpenCV package
 # Explicitly sets (if it exists) the local OpenCV_DIR to the system environment variable
@@ -35,11 +36,14 @@ include_directories( ${JSONCPP_INCLUDE_DIRS} )
 find_package( UnitTest++ REQUIRED )
 include_directories( ${UNITTEST++_INCLUDE_DIR} )
 
+# Pass the system name to the compiler
+add_compile_options("-D ${CMAKE_SYSTEM_NAME}")
+
 # Update the LIBS to include Boost, OpenCV, and JsonCpp
 set( LIBS ${LIBS}
     ${OpenCV_LIBRARIES}
     ${JSONCPP_LIBRARIES}
-    # ${Boost_LIBRARIES}
+    ${Boost_LIBRARIES}
     ${UNITTEST++_LIBRARY}
     )
 
@@ -51,6 +55,8 @@ set( CMAKESANDBOX_SOURCES
     )
 
 add_executable( ${PROJECT_NAME} ${CMAKESANDBOX_SOURCES} )
+
+set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 11)
 
 link_libraries( stdc++fs )
 set_property(
@@ -66,3 +72,4 @@ target_link_libraries( ${PROJECT_NAME}
     # ${Boost_SYSTEM_LIBRARY}
     ${UNITTEST++_LIBRARY}
     )
+
