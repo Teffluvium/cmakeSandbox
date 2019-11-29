@@ -56,8 +56,6 @@ set( CMAKESANDBOX_SOURCES
 
 add_executable( ${PROJECT_NAME} ${CMAKESANDBOX_SOURCES} )
 
-set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 11)
-
 link_libraries( stdc++fs )
 set_property(
     TARGET ${PROJECT_NAME}
@@ -68,8 +66,8 @@ target_link_libraries( ${PROJECT_NAME}
     ${EXTERNAL_LIBS}
     ${OpenCV_LIBRARIES}
     ${JSONCPP_LIBRARIES}
-    # ${Boost_FILESYSTEM_LIBRARY}
-    # ${Boost_SYSTEM_LIBRARY}
+    ${Boost_FILESYSTEM_LIBRARY}
+    ${Boost_SYSTEM_LIBRARY}
     ${UNITTEST++_LIBRARY}
     )
 
